@@ -1,0 +1,54 @@
+﻿@page "{subcategoryId:int}"
+@model Snackis4.Pages.Forum.CreatePostModel
+
+<div class="mb-3">
+    @if (Model.Subcategory != null)
+    {
+        <h4>@Model.Subcategory.Name</h4>
+    }
+    else
+    {
+        <h5> no subcategory found</h5>
+    }
+
+</div>
+<h5>Skapa ett nytt inlägg </h5>
+
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div id="successMessage" class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+    <script>
+        setTimeout(function() {
+            window.location.href = '@Url.Page("/Forum/ShowPosts", new { subcategoryId = Model.SubcategoryId })';
+        }, 4000);
+    </script>
+}
+
+<form method="post">
+
+   <input type="hidden" asp-for="SubcategoryId" />
+    <input type="hidden" asp-for="NewPost.UserId" /> 
+
+    <div asp-validation-summary="All"></div>
+
+    <div class="mb-3">
+        <label class="form-label" asp-for="NewPost.Title">Rubrik</label>
+        <input type="text" class="form-control" asp-for="NewPost.Title" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" asp-for="NewPost.Content">Innehåll</label>
+        <textarea class="form-control" asp-for="NewPost.Content"></textarea>
+    </div>
+    <button type="submit" class="btn btn-slate" value="Add Post">Skapa nytt inlägg</button>
+
+
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+} 
+

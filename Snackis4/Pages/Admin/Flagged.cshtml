@@ -1,0 +1,55 @@
+﻿@page
+@model Snackis4.Pages.Admin.FlaggedModel
+@{
+    ViewData["Title"] = "Manage Flagged Content";
+}
+
+
+<h2>Anmälda inlägg</h2>
+@if (Model.FlaggedPosts != null && Model.FlaggedPosts.Count > 0)
+{
+    <ul>
+        @foreach (var post in Model.FlaggedPosts)
+        {
+            <li>
+                <p>Skriven av: @post.AuthorNickname, tidpunkt: @post.AuthorCreatedAt</p>
+                <h3>@post.Title</h3>
+                <p>@post.Content</p>
+
+                <form method="post" asp-page-handler="RemovePost">
+                    <input type="hidden" name="postId" value="@post.Id" />
+                    <button type="submit" class="btn btn-outline-danger">Ta bort</button>
+                </form>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>Det finns inga anmälda inlägg.</p>
+}
+<hr />
+<h2>Anmälda kommentarer</h2>
+@if (Model.FlaggedComments != null && Model.FlaggedComments.Count > 0)
+{
+    <ul>
+        @foreach (var comment in Model.FlaggedComments)
+        {
+            <li>
+                <p>Skriven av: @comment.AuthorNickname, tidpunkt: @comment.AuthorCreatedAt</p>
+                <p>Text: </p>
+                <p class="fw-bold">@comment.Content</p>
+
+                <form method="post" asp-page-handler="RemoveComment">
+                    <input type="hidden" name="commentId" value="@comment.Id" />
+                    <button type="submit" class="btn btn-outline-danger">Ta bort kommentaren</button>
+                </form>
+            </li>
+            <hr />
+        }
+    </ul>
+}
+else
+{
+    <p>Det finns inga anmälda kommentarer.</p>
+}

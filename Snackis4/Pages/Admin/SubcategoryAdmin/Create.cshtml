@@ -1,0 +1,63 @@
+﻿@page
+@model Snackis4.Pages.Admin.SubcategoryAdmin.CreateModel
+@{
+}
+
+
+<h4>Skapa ny underkategori</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Subcategory.Name" class="control-label">Namn</label>
+                <input asp-for="Subcategory.Name" class="form-control" />
+                <span asp-validation-for="Subcategory.Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Subcategory.CategoryId" class="control-label">-</label>
+                <select asp-for="Subcategory.CategoryId" class="form-control">
+                    <option value="">Välj kategori</option>
+
+                    @foreach (var category in Model.Categories)
+                    {
+                        <option value="@category.Id">@category.Name</option>
+                    }
+                </select>
+                <br />
+
+                <span asp-validation-for="Subcategory.CategoryId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Skapa ny underkategori" class="btn btn-custom" />
+            </div>
+        </form>
+    </div>
+</div>
+<br />
+<div>
+    @if (Model.Subcategories != null && Model.Subcategories.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Underkategori</th>
+                    <th>Kategori</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var subcategory in Model.Subcategories)
+                {
+                    <tr>
+                        <td>@subcategory.Name</td>
+                        <td>@subcategory.Category.Name</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

@@ -1,0 +1,94 @@
+﻿@page "{postId:int}"
+@model Snackis4.Pages.Forum.ShowPostAndCommentsModel
+@{
+}
+
+<hr />
+
+@if (Model.Post != null)
+{
+    <div class="post-container">
+        <div class="user-info">
+
+            <img src="@Model.Post.UserProfilePicture" alt="Profile Picture" />
+
+            <p><strong>@Model.Post.UserNickname</strong></p>
+            <p>@Model.Post.CreatedAt.ToString("yyyy-MM-dd")</p>
+            <p>@Model.Post.CreatedAt.ToString("HH:mm:ss")</p>
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a asp-page="/Message/Create" asp-route-UserReceiverId="@Model.Post.UserId" class="btn btn-slate">Skicka<br />ett PM</a>
+            }
+        </div>
+
+        <div class="post-content">
+            <h2>@Model.Post.Title</h2>
+            <p>@Model.Post.Content</p>
+        </div>
+
+        <form method="post" asp-page-handler="ReportPost">
+            <input type="hidden" name="postId" value="@Model.Post.Id" />
+            <button type="submit" class="btn btn-red">Anmäl<br />inlägget</button>
+        </form>
+    </div>
+
+    <h5>Kommentarer</h5>
+
+    @if (Model.Post.Comments != null && Model.Post.Comments.Count > 0)
+    {
+        @foreach (var comment in Model.Post.Comments)
+        {
+            <div class="post-container">
+                <div class="user-comment-info">
+
+                    <img src="@comment.User?.ProfilePicture" alt="Profile Picture" />
+
+                    <p><strong><small>@comment.User?.Nickname</small></strong></p>
+                    <p><small>@comment.CreatedAt.ToString("yyyy-MM-dd")</small></p>
+                    <p><small>@comment.CreatedAt.ToString("HH:mm:ss")</small></p>
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a asp-page="/Message/Create" asp-route-UserReceiverId="@comment.UserId" class="btn btn-slate">Skicka<br />ett PM</a>
+                    }
+                </div>
+
+                <div class="post-content">
+                    <p>@comment.Content </p>
+                </div>
+
+                <form method="post" asp-page-handler="ReportComment">
+                    <input type="hidden" name="commentId" value="@comment.Id" />
+                    <button type="submit" class="btn btn-red">Anmäl<br />kommentaren</button>
+                </form>
+            </div>
+        }
+    }
+    else
+    {
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <p>Logga in för att bli den första att kommentera!</p>
+        }
+        else
+        {
+            <p>Det finns inga kommenterar. Bli den första att kommentera!</p>
+        }
+    }
+    <hr />
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+    <div>
+        <h6>Ny kommentar</h6>
+        <form method="post">
+            <div>
+                <textarea name="content" rows="5" cols="35" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-custom">Klart!</button>
+        </form>
+    </div>
+}
+

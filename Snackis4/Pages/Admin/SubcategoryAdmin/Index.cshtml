@@ -1,0 +1,30 @@
+﻿@page
+@model Snackis4.Pages.Admin.SubcategoryAdmin.IndexModel
+@{
+}
+<h2>Underkategorier</h2>
+<br />
+<h4>
+    <a asp-page="Create">Skapa ny underkategori</a>
+</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Namn</th>
+            <th>Kategori</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var subcategory in Model.Subcategories)
+        {
+            <tr>
+                <td>@subcategory.Name</td>
+                <td>@subcategory.Category.Name</td> 
+                <td>
+                    <a asp-page="./Delete" asp-route-id="@subcategory.Id">Ta bort</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

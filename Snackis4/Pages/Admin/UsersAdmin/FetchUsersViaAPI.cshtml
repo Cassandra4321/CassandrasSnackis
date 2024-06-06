@@ -1,0 +1,33 @@
+﻿@page
+@model Snackis4.Pages.Admin.UsersAdmin.FetchUsersViaAPIModel
+@{
+}
+
+
+<h1>Registrerade användare</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Visningsnamn</th>
+            <th>Email</th>
+            <th>Id</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <td>@user.NickName</td>
+                <td>@user.Email</td>
+                <td>@user.Id</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+
+
+

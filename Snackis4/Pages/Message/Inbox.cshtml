@@ -1,0 +1,37 @@
+﻿@page
+@model Snackis4.Pages.Message.InboxModel
+@{
+    ViewData["Title"] = "Inbox";
+}
+
+
+<ul class="navbar-nav">
+    <li class="nav-item">
+
+        <form method="get" action="/Message/Inbox" style="display: inline;">
+            <button type="submit" class="btn btn-custom" disabled>Inbox</button>
+        </form>
+
+        <form method="get" action="/Message/Sent" style="display: inline;">
+            <button type="submit" class="btn btn-custom">Skickat</button>
+        </form>
+    </li>
+</ul>
+<br />
+@if (Model.Messages != null && Model.Messages.Count > 0)
+{
+    <ul class="list-group">
+        @foreach (var message in Model.Messages)
+        {
+            <li class="list-group-item">
+                <strong>Från: @message.SenderNickname</strong>
+                <p>@message.MessageContent</p>
+                <small>Skickades: @message.SentAt</small>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>Det finns inga meddelanden i din inkorg än.</p>
+}

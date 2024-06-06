@@ -1,0 +1,29 @@
+﻿@page
+@model Snackis4.Pages.Forum.SubcategoriesModel
+@{
+}
+
+<div class="text-center">
+
+@if (Model.Category != null)
+{
+    <h4>@Model.Category.Name</h4>
+    <br />
+    @if (Model.Subcategories != null && Model.Subcategories.Count > 0)
+    {
+        <div class="category-container">
+            @foreach (var subcategory in Model.Subcategories)
+            {
+                <div class="category-tile">
+                    <a asp-page="/Forum/ShowPosts" asp-route-subcategoryId="@subcategory.Id">@subcategory.Name</a>
+                </div>
+
+            }
+        </div>
+    }
+    else
+    {
+        <p>Inga underkategorier hittades för @Model.Category.Name.</p>
+    }
+}
+</div>

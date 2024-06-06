@@ -1,0 +1,35 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+
+
+<div class="text-center">
+    @if (Model.MyUser != null)
+    {
+        <h2 class="m-4"> Välkommen @Model.MyUser.Nickname till C&A's Bokhörna!</h2>
+        <h4 class="m-2"><em>Här kan du hitta recensioner, boktips, diskussioner och massa mer!</em></h4>
+        <br />
+    }
+    else
+    {
+        <h1 class="display-4">Välkommen till C&A's Bokhörna!</h1>
+        <br />
+        <h4 class="m-2"><em>Här kan du hitta recensioner, boktips, diskussioner och massa mer. <br />Skapa ett konto redan idag!</em></h4>
+    }
+    <br />
+    <br />
+    <div class="category-container">
+
+        @foreach (var category in Model.Categories)
+        {
+            <div class="category-tile">
+                <a href="/Forum/Subcategories?categoryId=@category.Id">@category.Name</a>
+            </div>
+        }
+    </div>
+</div>
+</div>
+

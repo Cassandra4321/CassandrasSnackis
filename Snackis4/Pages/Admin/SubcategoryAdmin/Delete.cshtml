@@ -1,0 +1,21 @@
+﻿@page
+@model Snackis4.Pages.Admin.SubcategoryAdmin.DeleteModel
+@{
+}
+<br />
+<h3>Är du säker på att du vill ta bort den här underkategorin?</h3>
+<div>
+    <hr />
+    <dl class="table">
+        <dt class="col-sm-2">Namn</dt>
+        <dd class="col-sm-10">
+            @Model.Subcategory.Name
+        </dd>
+    </dl>
+
+    <form method="post">
+        <input type="hidden" asp-for="Subcategory.Id" />
+        <input type="submit" value="Ta bort" class="btn btn-danger" /> |
+        <a asp-page="./Index">Tillbaka till listan</a>
+    </form>
+</div>

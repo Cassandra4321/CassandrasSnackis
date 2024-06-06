@@ -1,0 +1,47 @@
+﻿@page "{subcategoryId:int}"
+@model Snackis4.Pages.Forum.ShowPostsModel
+@{
+    ViewData["Title"] = "Posts in Subcategory";
+}
+
+
+
+<h2>@Model.Subcategory.Name</h2>
+
+<br />
+
+@if (User.Identity.IsAuthenticated)
+{
+    <div>
+        <a class="btn btn-custom" asp-page="/Forum/CreatePost" asp-route-subcategoryId="@Model.SubcategoryId">Skapa ett nytt inlägg</a>
+    </div>
+}
+
+<br />
+
+@if (Model.Posts != null && Model.Posts.Count > 0)
+{
+    <ul>
+        <hr />
+        @foreach (var post in Model.Posts)
+        {
+            <p>
+                <img src="@post.UserProfilePicture" alt="Profile Picture" style="max-width: 40px; max-height: 40px;" />
+                @post.UserNickname | @post.CreatedAt
+            </p>
+            <h3>@post.Title</h3>
+            <p>@post.ShortContent</p>
+
+            <a class="btn btn-custom" asp-page="/Forum/ShowPostAndComments" asp-route-postId="@post.Id">Se hela inlägget och kommenterar</a>
+            <br />
+            <br />
+            <hr />
+        }
+    </ul>
+}
+else
+{
+    <p>Inga inlägg finns här för tillfället.</p>
+}
+
+
